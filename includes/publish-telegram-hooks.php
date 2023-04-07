@@ -37,21 +37,13 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
                 $plain_text_content .= "\n\n" . implode(" ", $hashtags);
             }
         }
-        
-        
-        // Get the post featured image if it exists
-        if ( has_post_thumbnail( $post_id ) ) {
-            $thumb_id = get_post_thumbnail_id( $post_id );
-            $attachment = wp_get_attachment_image_src( $thumb_id, 'full' );
-      // Use the attachment URL to send image to Telegram
-        }
 
         $image_urls = [];
         
-        // Get all images attached to the post
-        $attachments = get_attached_media( 'image', $post_id );
-        foreach ( $attachments as $attachment ) {
-            $image_url = $attachment->guid;
+        // Get all images from post content and keep display orders
+        $image_ids = parse_image_ids_from_content($content);
+        foreach ( $image_ids as $image_id ) {
+            $image_url = wp_get_attachment_url($image_id);
             // Use the attachment URL to send image to Telegram
             $image_urls[] = $image_url;
         }
