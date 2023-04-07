@@ -1,0 +1,20 @@
+{
+  "name": "promptslab-wp",
+  "version": "1.0.0",
+  "description": "prompts lab wordpress plugin",
+  "main": "index.js",
+  "scripts": {
+    "env-start": "wp-env start",
+		"env-update": "wp-env start -- --update "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/speshiou/promptslab-wp.git"
+  },
+  "author": "speshiou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/speshiou/promptslab-wp/issues"
+  },
+  "homepage": "https://github.com/speshiou/promptslab-wp#readme"
+}
