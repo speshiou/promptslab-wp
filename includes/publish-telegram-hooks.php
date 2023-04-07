@@ -11,6 +11,11 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
         // Replace new lines to markdown format
         $content = str_replace("<br>", "\n", $content);
         $plain_text_content = wp_strip_all_tags( $content );
+        // add inline code formatting to the prompt
+        $plain_text_content = preg_replace_callback("/💡 (.*)/i", function($matches) {
+            return sprintf("💡 `%s`", $matches[1]);
+        }, $plain_text_content);
+          
 
         // get the post tags
         $tags = wp_get_post_tags( $post_id );
