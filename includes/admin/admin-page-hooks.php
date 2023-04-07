@@ -3,6 +3,13 @@
 define( "PL_ADMIN_PAGE_ID", "promptslab" );
 define( "PL_OPTION_TELEGRAM_BOT_API_KEY", "telegram_bot_api_key" );
 define( "PL_OPTION_SD_CHANNEL_CHAT_ID", "sd_channel_chat_id" );
+define("PL_OPTION_TWITTER_CONSUMER_KEY", "consumer_key");
+define("PL_OPTION_TWITTER_CONSUMER_SECRET", "consumer_secret");
+define("PL_OPTION_TWITTER_ACCESS_TOKEN", "access_token");
+define("PL_OPTION_TWITTER_ACCESS_TOKEN_SECRET", "access_token_secret");
+define("PL_OPTION_TWITTER_CLIENT_ID", "twitter_client_id");
+define("PL_OPTION_TWITTER_CLIENT_SECRET", "twitter_client_secret");
+define("PL_OPTION_TWITTER_AUTH_CODE", "twitter_auth_code");
 
 /**
  * @internal never define functions inside callbacks.
@@ -23,7 +30,7 @@ function pl_settings_init() {
             'fields' => [
                 [
                     'id' => PL_OPTION_TELEGRAM_BOT_API_KEY,
-                    'title' => __( 'Telegram bot API key' ),
+                    'title' => __( 'bot API key' ),
                     'type' => 'text',
                 ],
                 [
@@ -32,7 +39,57 @@ function pl_settings_init() {
                     'type' => 'text',
                 ],
             ]
-        ]
+        ],
+        [
+            'id' => 'pl_section_twitter',
+            'title' => __( 'Twitter' ),
+            'fields' => [
+                [
+                    'id' => PL_OPTION_TWITTER_CONSUMER_KEY,
+                    'title' => __( 'consumer key' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_CONSUMER_SECRET,
+                    'title' => __( 'consumer secret' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_ACCESS_TOKEN,
+                    'title' => __( 'access token' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_ACCESS_TOKEN_SECRET,
+                    'title' => __( 'access token secret' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_CLIENT_ID,
+                    'title' => __( 'Client ID' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_CLIENT_SECRET,
+                    'title' => __( 'Client Secret' ),
+                    'type' => 'text',
+                ],
+                [
+                    'id' => 'auth_url',
+                    'title' => __( 'Auth Url' ),
+                    'type' => 'link',
+                    'args' => [
+                        'url' => (new TwitterAPI())->auth_url(),
+                        'text' => 'Open url',
+                    ]
+                ],
+                [
+                    'id' => PL_OPTION_TWITTER_AUTH_CODE,
+                    'title' => __( 'Auth code' ),
+                    'type' => 'text',
+                ],
+            ]
+        ],
     ];
 
     $options = get_option( PL_OPTIONS_KEY, [] );
@@ -108,6 +165,12 @@ function pl_section_telegram_callback( $args ) {
 function pl_field_text_input( $args ) {
     ?>
     <input name="<?php echo esc_attr($args['name']); ?>" type="text" id="<?php echo esc_attr($args['id']); ?>" value="<?php echo esc_attr($args['value']); ?>" class="regular-text">
+    <?php
+}
+
+function pl_field_link( $args ) {
+    ?>
+    <a href="<?php echo esc_url($args['url']); ?>" target="blank"><?php esc_html_e($args['text']) ?></a>
     <?php
 }
 
@@ -204,6 +267,8 @@ function pl_option_field_callback($type) {
     switch ($type) {
         case 'text':
             return 'pl_field_text_input';
+        case 'link':
+            return 'pl_field_link';
         default:
             return null;
     }

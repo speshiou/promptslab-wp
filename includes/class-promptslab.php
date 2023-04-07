@@ -23,7 +23,9 @@ class PromptsLab {
     public function includes() {
         include_once 'functions.php';
         include_once 'class-telegram-api.php';
+        include_once 'class-twitter-api.php';
         include_once 'publish-telegram-hooks.php';
+        include_once 'publish-twitter-hooks.php';
         include_once 'admin/class-pl-admin.php';
     }
 }
