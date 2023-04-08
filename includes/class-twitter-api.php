@@ -58,10 +58,17 @@ class TwitterAPI {
         
         $result = $this->api_request('oauth2/token', 'POST', $data, basic_auth: true);
         error_log(var_export($result, true));
-        $this->access_token = $result['access_token'];
-        update_option('pl_access_token', $result['access_token']);
-        update_option('pl_refresh_token', $result['refresh_token']);
-        update_option('pl_access_token_expire', time() + $result['expires_in'] );
+        if (isset($result['error'])) {
+            $this->access_token = null;
+            update_option('pl_access_token', null);
+            update_option('pl_refresh_token', null);
+            update_option('pl_access_token_expire', 0 );
+        } else {
+            $this->access_token = $result['access_token'];
+            update_option('pl_access_token', $result['access_token']);
+            update_option('pl_refresh_token', $result['refresh_token']);
+            update_option('pl_access_token_expire', time() + $result['expires_in'] );
+        }
         return $this->access_token;
     }
 
@@ -165,7 +172,7 @@ class TwitterAPI {
             // Do something with $responseData
         } else {
             // Request failed
-            throw new Exception($response);
+            return json_decode($response, true);
             // Handle the error
         }
     }
@@ -185,7 +192,7 @@ class TwitterAPI {
         ];
 
         $result = $this->api_request('tweets', 'POST', $data);
-
+        error_log(var_export($result, true));
         return $result['data']['id'];
     }
 
