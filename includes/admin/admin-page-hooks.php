@@ -80,13 +80,14 @@ function pl_settings_init() {
                     'type' => 'link',
                     'args' => [
                         'url' => (new TwitterAPI())->auth_url(),
-                        'text' => 'Open url',
+                        'text' => 'Get auth code',
                     ]
                 ],
                 [
                     'id' => PL_OPTION_TWITTER_AUTH_CODE,
                     'title' => __( 'Auth code' ),
                     'type' => 'text',
+                    'value' => isset($_GET['code']) ? $_GET['code'] : null,
                 ],
             ]
         ],
@@ -110,7 +111,9 @@ function pl_settings_init() {
                 $args = array_merge($args, $field['args']);
             }
             $args['name'] = sprintf("%s[%s]", PL_OPTIONS_KEY, $field_id);
-            $args['value'] = isset($options[$field_id]) ? $options[$field_id] : null;
+            if (!isset($args['value']) || !$args['value']) {
+                $args['value'] = isset($options[$field_id]) ? $options[$field_id] : null;
+            }
             add_settings_field(
                 $field_id, // As of WP 4.6 this value is used only internally.
                                         // Use $args' label_for to populate the id inside the callback.
@@ -170,7 +173,7 @@ function pl_field_text_input( $args ) {
 
 function pl_field_link( $args ) {
     ?>
-    <a href="<?php echo esc_url($args['url']); ?>" target="blank"><?php esc_html_e($args['text']) ?></a>
+    <a href="<?php echo esc_url($args['url']); ?>"><?php esc_html_e($args['text']) ?></a>
     <?php
 }
 
@@ -241,6 +244,12 @@ function pl_options_page_html() {
 	if ( isset( $_GET['settings-updated'] ) ) {
 		// add settings saved message with the class of "updated"
 		add_settings_error( 'pl_messages', 'pl_message', __( 'Settings Saved' ), 'updated' );
+	}
+
+    // check if callback from twitter
+    if ( isset( $_GET['code'] ) ) {
+		// prompt users to save settings
+		add_settings_error( 'pl_messages', 'pl_message', __( 'Twitter Auth Code updated, please save settings to persist new value' ), 'updated' );
 	}
 
 	// show error/update messages

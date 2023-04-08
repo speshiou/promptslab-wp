@@ -1,4 +1,6 @@
 <?php
+define('TWITTER_RETURN_URL', 'https://promptslab.co/wp-admin/admin.php?page=pl-admin');
+
 use Abraham\TwitterOAuth\TwitterOAuth;
 
 class TwitterAPI {
@@ -11,13 +13,6 @@ class TwitterAPI {
     private $access_token;
 
     public function __construct() {
-        $this->twitter_oauth = new TwitterOAuth(
-            pl_option(PL_OPTION_TWITTER_CONSUMER_KEY), 
-            pl_option(PL_OPTION_TWITTER_CONSUMER_SECRET), 
-            pl_option(PL_OPTION_TWITTER_ACCESS_TOKEN), 
-            pl_option(PL_OPTION_TWITTER_ACCESS_TOKEN_SECRET),
-        );
-
         $this->client_id = pl_option(PL_OPTION_TWITTER_CLIENT_ID);
         $this->client_secret = pl_option(PL_OPTION_TWITTER_CLIENT_SECRET);
         $this->auth_code = pl_option(PL_OPTION_TWITTER_AUTH_CODE);
@@ -25,6 +20,19 @@ class TwitterAPI {
         if (time() + 3600 < get_option('pl_access_token_expire', 0)) {
             $this->access_token = get_option('pl_access_token', null);
         }
+    }
+
+    private function get_oauth() {
+        if (!$this->twitter_oauth) {
+            $this->twitter_oauth = new TwitterOAuth(
+                pl_option(PL_OPTION_TWITTER_CONSUMER_KEY), 
+                pl_option(PL_OPTION_TWITTER_CONSUMER_SECRET), 
+                pl_option(PL_OPTION_TWITTER_ACCESS_TOKEN), 
+                pl_option(PL_OPTION_TWITTER_ACCESS_TOKEN_SECRET),
+            );
+        }
+        
+        return $this->twitter_oauth;
     }
 
     public function get_access_token() {
@@ -43,7 +51,7 @@ class TwitterAPI {
                 'code' => $this->auth_code,
                 'grant_type' => 'authorization_code',
                 'client_id' => $this->client_id,
-                'redirect_uri' => 'https://promptslab.co/',
+                'redirect_uri' => TWITTER_RETURN_URL,
                 'code_verifier' => 'challenge',
             ];
         }
@@ -63,7 +71,7 @@ class TwitterAPI {
         }
         return $this->build_auth_url(
             $this->client_id,
-            'https://promptslab.co/',
+            TWITTER_RETURN_URL,
             [
                 'tweet.read',
                 'tweet.write',
@@ -165,7 +173,7 @@ class TwitterAPI {
     public function post_tweet_with_images($text, $image_paths) {
         $media_ids = array();
         foreach ($image_paths as $path) {
-            $media = $this->twitter_oauth->upload('media/upload', ['media' => $path]);
+            $media = $this->get_oauth()->upload('media/upload', ['media' => $path]);
             $media_ids[] = $media->media_id_string;
         }
 
