@@ -3,6 +3,7 @@
 define( "PL_ADMIN_PAGE_ID", "promptslab" );
 define( "PL_OPTION_TELEGRAM_BOT_API_KEY", "telegram_bot_api_key" );
 define( "PL_OPTION_SD_CHANNEL_CHAT_ID", "sd_channel_chat_id" );
+define("PL_OPTION_TWITTER_TRAILING_HASHTAGS", "trail_hashtags");
 define("PL_OPTION_TWITTER_CONSUMER_KEY", "consumer_key");
 define("PL_OPTION_TWITTER_CONSUMER_SECRET", "consumer_secret");
 define("PL_OPTION_TWITTER_ACCESS_TOKEN", "access_token");
@@ -44,6 +45,11 @@ function pl_settings_init() {
             'id' => 'pl_section_twitter',
             'title' => __( 'Twitter' ),
             'fields' => [
+                [
+                    'id' => PL_OPTION_TWITTER_TRAILING_HASHTAGS,
+                    'title' => __( 'trailing hashtags' ),
+                    'type' => 'text',
+                ],
                 [
                     'id' => PL_OPTION_TWITTER_CONSUMER_KEY,
                     'title' => __( 'consumer key' ),

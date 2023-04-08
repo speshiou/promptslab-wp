@@ -22,6 +22,11 @@ function send_to_twitter( $post_id, $post, $update, $post_before ) {
             return sprintf("💡 `%s`", $matches[1]);
         }, $plain_text_content);
 
+        $trailing_hashtags = pl_option(PL_OPTION_TWITTER_TRAILING_HASHTAGS);
+        if ($trailing_hashtags) {
+            $plain_text_content .= "\n\n" . $trailing_hashtags;
+        }
+
         $image_paths = [];
         
         // Get all images from post content and keep display orders
