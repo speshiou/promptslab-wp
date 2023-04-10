@@ -17,6 +17,7 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
         // Replace new lines to markdown format
         $content = str_replace("<br>", "\n", $content);
         $plain_text_content = wp_strip_all_tags( $content );
+        $plain_text_content = trim($plain_text_content);
         // add inline code formatting to the prompt
         $plain_text_content = preg_replace_callback("/💡 (.*)/i", function($matches) {
             return sprintf("💡 `%s`", $matches[1]);
@@ -34,7 +35,12 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
             }
 
             if (!empty($hashtags)) {
-                $plain_text_content .= "\n\n" . implode(" ", $hashtags);
+                $hashtags_str = implode(" ", $hashtags);
+                if (str_endswith_hashtag($plain_text_content)) {
+                    $plain_text_content .= " " . $hashtags_str;
+                } else {
+                    $plain_text_content .= "\n\n" . $hashtags_str;
+                }
             }
         }
 

@@ -17,14 +17,15 @@ function send_to_twitter( $post_id, $post, $update, $post_before ) {
         // Replace new lines to markdown format
         $content = str_replace("<br>", "\n", $content);
         $plain_text_content = wp_strip_all_tags( $content );
-        // add inline code formatting to the prompt
-        $plain_text_content = preg_replace_callback("/💡 (.*)/i", function($matches) {
-            return sprintf("💡 `%s`", $matches[1]);
-        }, $plain_text_content);
+        $plain_text_content = trim($plain_text_content);
 
         $trailing_hashtags = pl_option(PL_OPTION_TWITTER_TRAILING_HASHTAGS);
         if ($trailing_hashtags) {
-            $plain_text_content .= "\n\n" . $trailing_hashtags;
+            if (str_endswith_hashtag($plain_text_content)) {
+                $plain_text_content .= " " . $trailing_hashtags;
+            } else {
+                $plain_text_content .= "\n\n" . $trailing_hashtags;    
+            }
         }
 
         $image_paths = [];

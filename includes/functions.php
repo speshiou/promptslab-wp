@@ -27,3 +27,8 @@ function parse_image_ids_from_content($content) {
  
     return $image_ids;
 }
+
+function str_endswith_hashtag($text) {
+    preg_match('/\#[^\s]+$/', $text, $match);
+    return $match != null;
+}
