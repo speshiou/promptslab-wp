@@ -49,6 +49,7 @@ class TelegramAPI {
             if ($i == 0) {
                 // trick to show message below a media group
                 $media['caption'] = $message;
+                $media['parse_mode'] = 'HTML';
             }
 
             $media_array[] = $media;
@@ -56,7 +57,6 @@ class TelegramAPI {
         $params = array(
             'chat_id' => $chat_id,
             'media' => json_encode( $media_array ),
-            'parse_mode' => 'Markdown',
         );
 
         $response = wp_remote_post( $url, array( 'body' => $params ) );
@@ -68,6 +68,7 @@ class TelegramAPI {
             if ( $result->ok ) {
                 return $result->result[0]->message_id;
             } else {
+                error_log($response['body']);
                 return false;
             }
         }
@@ -81,7 +82,7 @@ class TelegramAPI {
             'chat_id' => $chat_id,
             'message_id' => $message_id,
             'text' => $edited_message,
-            'parse_mode' => 'Markdown'
+            'parse_mode' => 'HTML'
         );
         $response = wp_remote_post( $url, array( 'body' => $params ) );
         if ( is_wp_error( $response ) ) {
@@ -92,6 +93,7 @@ class TelegramAPI {
             if ( $result->ok ) {
                 return true;
             } else {
+                error_log($response['body']);
                 return false;
             }
         }
@@ -104,7 +106,7 @@ class TelegramAPI {
             'chat_id' => $chat_id,
             'message_id' => $message_id,
             'caption' => $caption,
-            'parse_mode' => 'Markdown'
+            'parse_mode' => 'HTML'
         );
         $response = wp_remote_post( $url, array( 'body' => $params ) );
         if ( is_wp_error( $response ) ) {
@@ -115,6 +117,7 @@ class TelegramAPI {
             if ( $result->ok ) {
                 return true;
             } else {
+                error_log($response['body']);
                 return false;
             }
         }

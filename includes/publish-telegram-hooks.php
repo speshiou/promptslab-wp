@@ -5,7 +5,6 @@ add_action( 'wp_after_insert_post', 'send_to_telegram', 10, 4 );
 function send_to_telegram( $post_id, $post, $update, $post_before ) {
     // Check if post is published or updated
     if ( $post->post_status == 'publish' || $update ) {
-
         $category_slug = 'sd-prompt';
         $category = get_category_by_slug( $category_slug );
         if ( !$category || !has_category( $category->term_id, $post_id ) ) {
@@ -20,9 +19,15 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
         $plain_text_content = trim($plain_text_content);
         // add inline code formatting to the prompt
         $plain_text_content = preg_replace_callback("/💡 (.*)/i", function($matches) {
-            return sprintf("💡 `%s`", $matches[1]);
+            if ($matches[1] == 'concept') {
+                return sprintf("💡 #%s", $matches[1]);
+            }
+            return sprintf("💡 <code>%s</code>`", $matches[1]);
         }, $plain_text_content);
-          
+        // concept attributes
+        $plain_text_content = preg_replace_callback("/(.*) \- (.*)/i", function($matches) {
+            return sprintf("#%s - <code>%s</code>", $matches[1], $matches[2]);
+        }, $plain_text_content);
 
         // get the post tags
         $tags = wp_get_post_tags( $post_id );
