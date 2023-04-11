@@ -22,7 +22,7 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
             if ($matches[1] == 'concept') {
                 return sprintf("💡 #%s", $matches[1]);
             }
-            return sprintf("💡 <code>%s</code>`", $matches[1]);
+            return sprintf("💡 <code>%s</code>", $matches[1]);
         }, $plain_text_content);
         // concept attributes
         $plain_text_content = preg_replace_callback("/(.*) \- (.*)/i", function($matches) {
