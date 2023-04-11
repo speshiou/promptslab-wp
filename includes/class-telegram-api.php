@@ -61,7 +61,7 @@ class TelegramAPI {
 
         $response = wp_remote_post( $url, array( 'body' => $params ) );
         if ( is_wp_error( $response ) ) {
-            error_log($response['body']);
+            error_log(sprintf("Telegram error %s: %s", $response->get_error_code(), $response->get_error_message()));
             return false;
         } else {
             $result = json_decode( $response['body'] );
@@ -86,7 +86,7 @@ class TelegramAPI {
         );
         $response = wp_remote_post( $url, array( 'body' => $params ) );
         if ( is_wp_error( $response ) ) {
-            error_log($response['body']);
+            error_log(sprintf("Telegram error %s: %s", $response->get_error_code(), $response->get_error_message()));
             return false;
         } else {
             $result = json_decode( $response['body'] );
@@ -110,7 +110,7 @@ class TelegramAPI {
         );
         $response = wp_remote_post( $url, array( 'body' => $params ) );
         if ( is_wp_error( $response ) ) {
-            error_log($response['body']);
+            error_log(sprintf("Telegram error %s: %s", $response->get_error_code(), $response->get_error_message()));
             return false;
         } else {
             $result = json_decode( $response['body'] );
