@@ -4,7 +4,7 @@ add_action( 'wp_after_insert_post', 'send_to_twitter', 10, 4 );
 
 function send_to_twitter( $post_id, $post, $update, $post_before ) {
     // Check if post is published or updated
-    if ( $post->post_status == 'publish' || $update ) {
+    if ( $post->post_status == 'publish' ) {
 
         $category_slug = 'sd-prompt';
         $category = get_category_by_slug( $category_slug );
@@ -48,10 +48,10 @@ function send_to_twitter( $post_id, $post, $update, $post_before ) {
         $tweet_id = null;
         if ($update) {
             $tweet_id = get_post_meta( $post_id, 'twitter_post_id', true );
-            if ($tweet_id) {
-                $twitter_api->delete_tweet($tweet_id);
-                $tweet_id = null;
-            }
+            // if ($tweet_id) {
+            //     $twitter_api->delete_tweet($tweet_id);
+            //     $tweet_id = null;
+            // }
         }
 
         if ( !$tweet_id ) {
