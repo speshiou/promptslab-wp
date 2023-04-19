@@ -9,6 +9,10 @@ class PromptsLab {
         PromptsLab::$_plugin_file = $plugin_file;
     }
 
+    public static function get_plugin_file() {
+        return self::$_plugin_file;
+    }
+
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
@@ -27,5 +31,6 @@ class PromptsLab {
         include_once 'publish-telegram-hooks.php';
         include_once 'publish-twitter-hooks.php';
         include_once 'admin/class-pl-admin.php';
+        include_once 'block-hooks.php';
     }
 }

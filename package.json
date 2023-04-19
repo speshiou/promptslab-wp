@@ -4,8 +4,24 @@
   "description": "prompts lab wordpress plugin",
   "main": "index.js",
   "scripts": {
+    "start": "wp-scripts start --webpack-copy-php --webpack-src-dir=blocks --output-path=build/blocks",
+    "start:non-block": "wp-scripts start --output-path=build/non-block-examples --config=./non-block.webpack.config.js",
+    "build": "wp-scripts build --webpack-copy-php --webpack-src-dir=blocks --output-path=build/blocks",
+    "build:non-block": "wp-scripts build --output-path=build/non-block-examples --config=./non-block.webpack.config.js",
+    "build:all": "npm run build && npm run build:non-block",
+    "check-engines": "wp-scripts check-engines",
+    "check-licenses": "wp-scripts check-licenses",
+    "format": "wp-scripts format",
+    "lint:css": "wp-scripts lint-style",
+    "lint:js": "wp-scripts lint-js",
+    "lint:md:docs": "wp-scripts lint-md-docs",
+    "lint:pkg-json": "wp-scripts lint-pkg-json",
+    "packages-update": "wp-scripts packages-update",
+    "plugin-zip": "wp-scripts plugin-zip",
+    "test:e2e": "wp-scripts test-e2e",
+    "test:unit": "wp-scripts test-unit-js",
     "env-start": "wp-env start",
-		"env-update": "wp-env start -- --update "
+    "env-update": "wp-env start -- --update "
   },
   "repository": {
     "type": "git",
@@ -16,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/speshiou/promptslab-wp/issues"
   },
-  "homepage": "https://github.com/speshiou/promptslab-wp#readme"
+  "homepage": "https://github.com/speshiou/promptslab-wp#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "^26.2.0"
+  }
 }

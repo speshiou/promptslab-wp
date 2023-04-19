@@ -1,0 +1,22 @@
+.wp-block-promptslab-tags-filter {
+	ul {
+        list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+    }
+
+	li {
+		a {
+			text-decoration: none;
+			padding: 8px;
+		}
+
+		&.active {
+			background-color: var(--wp--preset--color--primary);
+		}
+
+		+li {
+			margin-left: 8px;
+		}
+	}
+}

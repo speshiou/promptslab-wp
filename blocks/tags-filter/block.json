@@ -1,0 +1,15 @@
+{
+    "apiVersion": 2,
+    "title": "Tags Filter",
+    "name": "promptslab/tags-filter",
+    "category": "layout",
+    "icon": "universal-access-alt",
+    "attributes": {
+      "tags": {
+        "type": "array"
+      }
+    },
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css",
+    "render": "file:./render.php"
+}
