@@ -16,8 +16,12 @@ export default ( { attributes, setAttributes } ) => {
         setAttributes( data );
     };
 
+    const queryArgs = {
+        'per_page': -1
+    };
+
     const categories = useSelect( ( select ) => {
-        return select( 'core' ).getEntityRecords( 'taxonomy', 'category' );
+        return select( 'core' ).getEntityRecords( 'taxonomy', 'category', queryArgs );
     }, [] ) || [];
 
     const categoryOptions = categories.map((e) => {
@@ -33,7 +37,7 @@ export default ( { attributes, setAttributes } ) => {
     });
 
     const tags = useSelect( ( select ) => {
-        return select( 'core' ).getEntityRecords( 'taxonomy', 'post_tag' );
+        return select( 'core' ).getEntityRecords( 'taxonomy', 'post_tag', queryArgs );
     }, [] ) || [];
 
     const tagOptions = tags.map((e) => {

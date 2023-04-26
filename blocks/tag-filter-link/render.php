@@ -1,9 +1,10 @@
 <?php
     if (isset($attributes['category']) && isset($attributes['tag']) && $attributes['category'] && $attributes['tag']) {
-        $cat_ID = get_cat_ID($attributes['category']);
-        $link = get_category_link($cat_ID);
-        $filter_link = add_query_arg('filter', $attributes['tag'], $link);
-
+        // build link url
+        $category = get_term_by('slug', $attributes['category'], 'category');
+        $cat_link = get_category_link($category->term_id);
+        $filter_link = add_query_arg('filter', $attributes['tag'], $cat_link);
+        // build link text
         $tag = get_term_by('slug', $attributes['tag'], 'post_tag');
         $link_text = sprintf('See more %s prompts', $tag->name);
     }
