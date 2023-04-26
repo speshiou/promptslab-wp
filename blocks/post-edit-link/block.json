@@ -1,0 +1,10 @@
+{
+    "apiVersion": 2,
+    "title": "Post Edit Link",
+    "name": "promptslab/post-edit-link",
+    "category": "layout",
+    "icon": "universal-access-alt",
+    "usesContext": [ "postId" ],
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php"
+}
