@@ -1,0 +1,11 @@
+{
+    "apiVersion": 2,
+    "title": "ChatGPT Prompt",
+    "name": "promptslab/chatgpt-prompt",
+    "category": "layout",
+    "icon": "universal-access-alt",
+    "usesContext": [ "postId" ],
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css",
+    "render": "file:./render.php"
+}
