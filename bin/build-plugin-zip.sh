@@ -7,6 +7,9 @@ set -e
 cd "$(dirname "$0")"
 cd ..
 
+# clean up
+rm -r build
+
 echo "Generating build... 👷‍♀️"
 npm run build
 
