@@ -1,0 +1,17 @@
+{
+    "apiVersion": 2,
+    "title": "Tag Filter link",
+    "name": "promptslab/tag-filter-link",
+    "category": "layout",
+    "icon": "universal-access-alt",
+    "attributes": {
+      "category": {
+        "type": "string"
+      },
+      "tag": {
+        "type": "string"
+      }
+    },
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php"
+}
