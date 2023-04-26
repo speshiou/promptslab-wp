@@ -32,5 +32,6 @@ class PromptsLab {
         include_once 'publish-twitter-hooks.php';
         include_once 'admin/class-pl-admin.php';
         include_once 'block-hooks.php';
+        include_once 'sd-prompt-hooks.php';
     }
 }
