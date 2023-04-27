@@ -1,0 +1,10 @@
+{
+    "apiVersion": 2,
+    "title": "Post Tags",
+    "name": "promptslab/post-tags",
+    "category": "layout",
+    "icon": "universal-access-alt",
+    "usesContext": [ "postId" ],
+    "editorScript": "file:./index.js",
+    "render": "file:./render.php"
+}
