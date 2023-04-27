@@ -9,7 +9,6 @@ function pl_handle_filter_query( $query ) {
 	if ( ! is_admin() && $query->is_main_query() ) {
 		// Not a query for an admin page.
 		// It's the main query for a front end page of your site.
-
 		if ( is_category() ) {
 			// It's the main query for a category archive.
 
@@ -18,6 +17,8 @@ function pl_handle_filter_query( $query ) {
             if ($filter) {
                 $query->set( 'tag', $filter );
             }
+
+			$query->set( 'posts_per_page', 20 );
 		}
 	}
 }

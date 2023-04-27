@@ -192,8 +192,10 @@ class TwitterAPI {
         ];
 
         $result = $this->api_request('tweets', 'POST', $data);
+        if (isset($result['data']['id'])) {
+            return $result['data']['id'];
+        }
         error_log(var_export($result, true));
-        return $result['data']['id'];
     }
 
     public function delete_tweet($tweet_id) {

@@ -16,8 +16,6 @@ function pl_sd_prompt_content( $content ) {
         return sprintf('💡 <a href="%s">concept</a>', esc_url($link));
     }, $content);
 
-    error_log($content);
-
     // add tag filter links
     $content = preg_replace_callback("/([^<>]+) (-|\&#8211;) ([^<>]+)/i", function($matches) use ($cat_link) {
         $link = add_query_arg( 'filter', $matches[1], $cat_link );

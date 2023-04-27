@@ -13,6 +13,10 @@
 
 		&.active {
 			background-color: var(--wp--preset--color--primary);
+
+			a {
+				color: var(--wp--preset--color--base);
+			}
 		}
 
 		+li {
