@@ -22,7 +22,7 @@
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js",
     "env-start": "wp-env start",
-    "env-update": "wp-env start -- --update "
+    "env-update": "wp-env start -- --update"
   },
   "repository": {
     "type": "git",

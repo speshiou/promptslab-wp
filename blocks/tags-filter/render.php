@@ -1,14 +1,15 @@
 <?php
     $selected_tags = isset($attributes['tags']) && is_array($attributes['tags']) ? $attributes['tags'] : [];
-    $cache = array_reduce($selected_tags, function($carry, $entity) {
-        $carry[$entity] = true;
+    $tags = get_tags(['hide_empty' => false]);
+    $cache = array_reduce($tags, function($carry, $tag) {
+        $carry[$tag->slug] = $tag;
         return $carry;
     }, []);
-    $tags = get_tags(['hide_empty' => false]);
+    
     $filters = [];
-    foreach ($tags as $tag) {
-        if (array_key_exists($tag->slug, $cache)) {
-            $filters[] = $tag;
+    foreach ($selected_tags as $slug) {
+        if (array_key_exists($slug, $cache)) {
+            $filters[] = $cache[$slug];
         }
     }
 
