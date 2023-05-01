@@ -16,8 +16,12 @@ export default ( { attributes, setAttributes } ) => {
         setAttributes( data );
     };
 
+    const queryArgs = {
+        'per_page': -1
+    };
+
     const tags = useSelect( ( select ) => {
-        return select( 'core' ).getEntityRecords( 'taxonomy', 'post_tag' );
+        return select( 'core' ).getEntityRecords( 'taxonomy', 'post_tag', queryArgs );
     }, [] ) || [];
 
     const selectedTags = attributes.tags || [];
