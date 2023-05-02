@@ -24,12 +24,18 @@ function pl_handle_filter_query( $query ) {
 				$cat_sd_prompt->term_id,
 				$cat_chatgpt->term_id,
 			];
-
+			
 			foreach ($query->tax_query->queries as $tax_query) {
-				if ($tax_query['taxonomy'] == 'category' && in_array($tax_query['terms'][0], $content_cat_ids)) {
-					$query->set( 'posts_per_page', 20 );
-					$query->set( 'orderby', 'ID' );
-					$query->set( 'order', 'ASC' );
+				if ($tax_query['taxonomy'] == 'category') {
+					if (
+						($tax_query['field'] == 'slug' && in_array($tax_query['terms'][0], ['sd-prompt', 'chatgpt']))
+						|| in_array($tax_query['terms'][0], $content_cat_ids)
+					) {
+						$query->set( 'posts_per_page', 20 );
+						$query->set( 'orderby', 'ID' );
+						$query->set( 'order', 'ASC' );
+					}
+
 					break;
 				}
 			}
