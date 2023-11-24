@@ -60,3 +60,14 @@ function pl_find_block_dirs($dir) {
     }
     return $block_json_dirs;
 }
+
+function sd_prompt_content($post, $content = null) {
+    if (!$content) {
+        $content = $post->post_content;
+    }
+    if (!preg_match("/💡 (.*)/i", $content)) {
+        $prompt = strtolower($post->post_title);
+        $content .= "<p>💡 " . esc_html($prompt) . "</p>";
+    }
+    return $content;
+}

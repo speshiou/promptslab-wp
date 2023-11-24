@@ -10,6 +10,8 @@ function pl_sd_prompt_content( $content ) {
     $category = get_term_by('slug', 'sd-prompt', 'category');
     $cat_link = get_category_link($category->term_id);
 
+    $content = sd_prompt_content($post, $content);
+
     // add concept filter link
     $content = preg_replace_callback("/💡 concept/i", function($matches) use ($cat_link) {
         $link = add_query_arg( 'filter', 'concept', $cat_link );

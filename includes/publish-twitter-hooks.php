@@ -13,7 +13,7 @@ function send_to_twitter( $post_id, $post, $update, $post_before ) {
         }
         
         // Get the post content
-        $content = $post->post_content;
+        $content = sd_prompt_content($post);
         // Replace new lines to markdown format
         $content = str_replace("<br>", "\n", $content);
         $plain_text_content = wp_strip_all_tags( $content );
