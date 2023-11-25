@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/speshiou/promptslab-wp#readme",
   "devDependencies": {
+    "@wordpress/env": "^8.12.0",
     "@wordpress/scripts": "^26.2.0"
   }
 }
