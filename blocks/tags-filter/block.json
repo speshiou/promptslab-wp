@@ -7,6 +7,9 @@
     "attributes": {
       "tags": {
         "type": "array"
+      },
+      "active_color": {
+        "type": "object"
       }
     },
     "editorScript": "file:./index.js",

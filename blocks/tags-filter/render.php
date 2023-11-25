@@ -13,12 +13,21 @@
         }
     }
 
+    $active_color_slug = isset($attributes['active_color']) ? $attributes['active_color']['slug'] : null;
+
     $wrapper_attributes = get_block_wrapper_attributes();
 ?>
 <nav <?php echo $wrapper_attributes; ?>>
     <ul>
-        <?php foreach ($filters as $tag): ?>
-            <li class="<?php echo get_query_var('filter') == $tag->slug ? 'active' : ''; ?>"><a href="<?php echo esc_url(add_query_arg( 'filter', $tag->slug )); ?>"><?php echo $tag->name; ?></a></li>
+        <?php foreach ($filters as $tag): 
+            $active = get_query_var('filter') == $tag->slug;
+            $item_style = $active ? 'style="background-color: var(' . theme_color_var($active_color_slug) . ');"' : '';
+        ?>
+            <li class="<?php echo $active ? 'active' : ''; ?>" <?php echo $item_style ?>>
+                <a href="<?php echo esc_url(add_query_arg( 'filter', $tag->slug )); ?>">
+                    <?php echo $tag->name; ?>
+                </a>
+            </li>
         <?php endforeach; ?>
     </ul>
 </nav>

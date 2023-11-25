@@ -71,3 +71,7 @@ function sd_prompt_content($post, $content = null) {
     }
     return $content;
 }
+
+function theme_color_var($slug) {
+    return '--wp--preset--color--' . $slug;
+}
