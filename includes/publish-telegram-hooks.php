@@ -5,9 +5,7 @@ add_action( 'wp_after_insert_post', 'send_to_telegram', 10, 4 );
 function send_to_telegram( $post_id, $post, $update, $post_before ) {
     // Check if post is published or updated
     if ( $post->post_status == 'publish' ) {
-        $category_slug = 'sd-prompt';
-        $category = get_category_by_slug( $category_slug );
-        if ( !$category || !has_category( $category->term_id, $post_id ) ) {
+        if ( !is_sd_prompt($post) ) {
             return;
         }
         
@@ -29,14 +27,14 @@ function send_to_telegram( $post_id, $post, $update, $post_before ) {
             return sprintf("#%s - <code>%s</code>", $matches[1], $matches[2]);
         }, $plain_text_content);
 
-        // get the post tags
-        $tags = wp_get_post_tags( $post_id );
+        // get the post categories
+        $categories = wp_get_post_categories($post_id, [ 'fields' => 'all']);
 
-        if ( $tags ) { // If tags exist for the post
+        if ( $categories ) { // If terms exist for the post
             $hashtags = [];
 
-            foreach( $tags as $tag ) { // Loop through each tag object
-                $hashtags[] = '#' . $tag->slug; // Retrieves the slug of the tag object
+            foreach( $categories as $cat ) { // Loop through each term object
+                $hashtags[] = '#' . $cat->slug; // Retrieves the slug of the term object
             }
 
             if (!empty($hashtags)) {

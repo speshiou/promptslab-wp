@@ -75,3 +75,14 @@ function sd_prompt_content($post, $content = null) {
 function theme_color_var($slug) {
     return '--wp--preset--color--' . $slug;
 }
+
+function has_ancestor_category($cat_id, $ancestor_cat_slug) {
+    $ancestor = get_category_by_slug( $ancestor_cat_slug );
+    $ancestors = get_ancestors($cat_id, 'category');
+    return in_array($ancestor->term_id, $ancestors);
+}
+
+function is_sd_prompt($post) {
+    $categories = wp_get_post_categories($post->ID);
+    return has_ancestor_category($categories[0], 'sd-prompt');
+}

@@ -5,10 +5,7 @@ add_action( 'wp_after_insert_post', 'send_to_twitter', 10, 4 );
 function send_to_twitter( $post_id, $post, $update, $post_before ) {
     // Check if post is published or updated
     if ( $post->post_status == 'publish' ) {
-
-        $category_slug = 'sd-prompt';
-        $category = get_category_by_slug( $category_slug );
-        if ( !$category || !has_category( $category->term_id, $post_id ) ) {
+        if ( !is_sd_prompt($post) ) {
             return;
         }
         
