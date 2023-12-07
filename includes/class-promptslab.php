@@ -34,5 +34,6 @@ class PromptsLab {
         include_once 'block-hooks.php';
         include_once 'home-hooks.php';
         include_once 'sd-prompt-hooks.php';
+        include_once 'template-hooks.php';
     }
 }
