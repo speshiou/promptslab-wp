@@ -86,3 +86,16 @@ function is_sd_prompt($post) {
     $categories = wp_get_post_categories($post->ID);
     return has_ancestor_category($categories[0], 'sd-prompt');
 }
+
+function get_top_level_category($category_id) {
+    $category = get_category($category_id);
+    
+    // Check if the category has a parent
+    if ($category->parent == 0) {
+        // If the category has no parent, it is the top-level category
+        return $category;
+    } else {
+        // If the category has a parent, recursively call the function to check the parent's parent
+        return get_top_level_category($category->parent);
+    }
+}

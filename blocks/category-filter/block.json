@@ -1,0 +1,15 @@
+{
+    "apiVersion": 2,
+    "title": "Category Filter",
+    "name": "promptslab/category-filter",
+    "category": "layout",
+    "icon": "filter",
+    "attributes": {
+      "active_color": {
+        "type": "object"
+      }
+    },
+    "editorScript": "file:./index.js",
+    "style": "file:./style-index.css",
+    "render": "file:./render.php"
+}

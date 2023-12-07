@@ -1,0 +1,24 @@
+.wp-block-promptslab-category-filter {
+	ul {
+        list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+    }
+
+	li {
+		a {
+			text-decoration: none;
+			padding: 8px;
+		}
+
+		&.active {
+			a {
+				color: var(--wp--preset--color--base);
+			}
+		}
+
+		+li {
+			margin-left: 8px;
+		}
+	}
+}
